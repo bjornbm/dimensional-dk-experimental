@@ -39,8 +39,16 @@ freezingPointOfWater = absoluteZero .+^ (273.15 *~ degreeCelsius)
 fromCelsius :: (Fractional a) => a -> AbsoluteTemperature a
 fromCelsius t = freezingPointOfWater .+^ (t *~ degreeCelsius)
 
+toCelsius :: (Fractional a) => AbsoluteTemperature a -> a
+toCelsius (AbsoluteTemperature t) | t >= _0 = t /~ degreeCelsius
+                                  | otherwise = error "Negative absolute temperature."
+
 fromFahrenheit :: (Fractional a) => a -> AbsoluteTemperature a
 fromFahrenheit t = freezingPointOfWater .+^ ((t Prelude.- 32) *~ degreeFahrenheit)
+
+toFahrenheit :: (Fractional a) => AbsoluteTemperature a -> a
+toFahrenheit (AbsoluteTemperature t) | t >= _0 = t /~ degreeFahrenheit
+                                     | otherwise = error "Negative absolute temperature."
 
 -- attempting to migrate this to core dimensional-dk
 degreeFahrenheit :: (Fractional a) => Unit DThermodynamicTemperature a
