@@ -1,20 +1,22 @@
 Source: 2010 CODATA recommended values, by way of NIST http://physics.nist.gov/cuu/Constants/index.html
 
+> {-# LANGUAGE DataKinds #-}
+> {-# LANGUAGE TypeOperators #-}
 > {-# LANGUAGE NoMonomorphismRestriction #-}
 > module Numeric.Units.Dimensional.DK.Codata
 
 > where
 
 > import Prelude hiding ((*), (/), (^), pi)
-> import Numeric.Units.Dimensional.TF
-> import Numeric.Units.Dimensional.TF.Quantities
-> import Numeric.Units.Dimensional.TF.SIUnits
-> import Numeric.NumType.TF (neg5,neg4,neg3,neg2,neg1,zero,pos1,pos2,pos3,pos4,pos5,Neg5,Neg4,Neg3,Neg2,Neg1,Zero,Pos1,Pos2,Pos3,Pos4,Pos5)
+> import Numeric.Units.Dimensional.DK
+> import Numeric.Units.Dimensional.DK.Quantities
+> import Numeric.Units.Dimensional.DK.SIUnits
+> import Numeric.NumType.DK (NumType(..),neg4,neg3,neg2,neg1,zero,pos1,pos2,pos3,pos4)
 
 > atomicMassConstant :: (Fractional a) => Mass a
 > atomicMassConstant = 1.660538921e-27 *~ kilo gram
 
-> avogadroConstant :: (Fractional a) => Quantity (Div DOne DAmountOfSubstance) a
+> avogadroConstant :: (Fractional a) => Quantity (Recip DAmountOfSubstance) a
 > avogadroConstant = 6.02214129e23 *~ mole^neg1
 
 > boltzmannConstant :: (Fractional a) => Entropy a
@@ -37,7 +39,7 @@ Defined this way because it's value is exact if you use exact arithmetic.
 > elementaryCharge :: (Fractional a) => ElectricCharge a
 > elementaryCharge = 1.602176565e-19 *~ coulomb
 
-> faradayConstant :: (Fractional a) => Quantity (Div DElectricCharge DAmountOfSubstance) a
+> faradayConstant :: (Fractional a) => Quantity (DElectricCharge / DAmountOfSubstance) a
 > faradayConstant = 96485.3365 *~ (coulomb / mole)
 
 > fineStructureConstant :: (Fractional a) => Dimensionless a
