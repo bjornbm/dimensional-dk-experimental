@@ -17,11 +17,15 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 library
-  exposed-modules:     Numeric.Units.Dimensional.DK.Time
+  exposed-modules:     Numeric.Units.Dimensional.DK.Time,
+                       Numeric.Units.Dimensional.DK.Codata,
+                       Numeric.Units.Dimensional.DK.Torsor
   -- other-modules:       
   -- other-extensions:    
   build-depends:       base >=4.7 && <4.8,
                        time >=1.4 && <1.5,
-                       dimensional-dk >=0.7
+                       dimensional-dk >=0.7,
+                       numtype-dk >= 0.4,
+                       vector-space
   -- hs-source-dirs:      
   default-language:    Haskell2010
