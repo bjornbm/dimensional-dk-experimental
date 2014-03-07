@@ -16,15 +16,7 @@ Define .  -}
 module Numeric.Units.Dimensional.DK.Torsor where
 
 import Numeric.Units.Dimensional.DK.Prelude
-import Data.AffineSpace
 import Data.AdditiveGroup
-
-newtype TorsorQuantity d a = TorsorQuantity (Quantity d a)
-
-instance (Num a) => AffineSpace (TorsorQuantity d a) where
-  type Diff (TorsorQuantity d a) = Quantity d a
-  (TorsorQuantity x) .-. (TorsorQuantity y) = x - y
-  (TorsorQuantity x) .+^ y = TorsorQuantity (x + y)
 
 instance (Num a) => AdditiveGroup (Quantity d a) where
   zeroV = _0

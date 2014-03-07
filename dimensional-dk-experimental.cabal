@@ -19,7 +19,8 @@ cabal-version:       >=1.10
 library
   exposed-modules:     Numeric.Units.Dimensional.DK.Time,
                        Numeric.Units.Dimensional.DK.Codata,
-                       Numeric.Units.Dimensional.DK.Torsor
+                       Numeric.Units.Dimensional.DK.Torsor,
+                       Numeric.Units.Dimensional.DK.AbsoluteTemperature
   -- other-modules:       
   -- other-extensions:    
   build-depends:       base >=4.7 && <4.8,
