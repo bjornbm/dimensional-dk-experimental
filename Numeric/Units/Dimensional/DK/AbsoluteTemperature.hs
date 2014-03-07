@@ -6,7 +6,7 @@
     Stability  : Stable
     Portability: GHC only?
 
-Define .  -}
+Define scales for absolute temperature.  -}
 
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeFamilies #-}
