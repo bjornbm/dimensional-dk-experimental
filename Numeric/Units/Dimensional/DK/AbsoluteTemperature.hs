@@ -18,6 +18,7 @@ Define scales for absolute temperature.  -}
 module Numeric.Units.Dimensional.DK.AbsoluteTemperature where
 
 import Numeric.Units.Dimensional.DK.Prelude
+import Numeric.Units.Dimensional.DK.NonSI
 import Numeric.Units.Dimensional.DK.Torsor
 import Data.AffineSpace
 import qualified Prelude ((-),(/))
@@ -49,7 +50,3 @@ fromFahrenheit t = freezingPointOfWater .+^ ((t Prelude.- 32) *~ degreeFahrenhei
 toFahrenheit :: (Fractional a, Ord a) => AbsoluteTemperature a -> a
 toFahrenheit (AbsoluteTemperature t) | t >= _0 = t /~ degreeFahrenheit
                                      | otherwise = error "Negative absolute temperature."
-
--- attempting to migrate this to core dimensional-dk
-degreeFahrenheit :: (Fractional a) => Unit DThermodynamicTemperature a
-degreeFahrenheit = prefix (5 Prelude./ 9) degreeCelsius
