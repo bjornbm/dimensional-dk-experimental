@@ -19,7 +19,7 @@ module Numeric.Units.Dimensional.DK.AbsoluteTemperature where
 
 import Numeric.Units.Dimensional.DK.Prelude
 import Numeric.Units.Dimensional.DK.NonSI
-import Numeric.Units.Dimensional.DK.Torsor
+import Numeric.Units.Dimensional.DK.VectorSpace
 import Data.AffineSpace
 import qualified Prelude ((-),(/))
 
