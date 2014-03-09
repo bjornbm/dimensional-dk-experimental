@@ -19,7 +19,6 @@ import Numeric.Units.Dimensional.DK.Prelude hiding (lookup)
 import Numeric.Units.Dimensional.DK.UnitNames (UnitName)
 import qualified Data.Map as M
 import Data.Proxy
-import Control.Monad (join)
 import Data.Maybe (fromMaybe)
 
 data AnyUnit v = AnyUnit Dimension' UnitName v
