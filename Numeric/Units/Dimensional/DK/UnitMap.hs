@@ -26,11 +26,13 @@ data AnyUnit v = AnyUnit Dimension' UnitName v
   deriving (Eq, Show)
 
 demote :: forall a d v.(KnownDimension d, Fractional v) => Unit a d v -> AnyUnit v
-demote u = AnyUnit (toSIBasis (Proxy :: Proxy d)) (name u) (u /~ siUnit)
+demote u = AnyUnit dim (name u) (u /~ siUnit)
+         where dim = toSIBasis (Proxy :: Proxy d)
 
 promote :: forall d v.(Fractional v, KnownDimension d) => AnyUnit v -> Maybe (Unit Composite d v)
-promote (AnyUnit dim name val) | dim == (toSIBasis (Proxy :: Proxy d)) = Just $ unit name (val *~ siUnit)
-                               | otherwise                             = Nothing
+promote (AnyUnit dim name val) | dim == dim' = Just $ unit name (val *~ siUnit)
+                               | otherwise   = Nothing
+                                             where dim' = toSIBasis (Proxy :: Proxy d)
 
 newtype UnitMap v = UnitMap (M.Map Dimension' (AnyUnit v))
   deriving (Show)
@@ -45,7 +47,8 @@ insertAny :: AnyUnit v -> UnitMap v -> UnitMap v
 insertAny u@(AnyUnit d _ _) (UnitMap m) = UnitMap $ (M.insert d u) m
 
 lookup :: forall d v.(KnownDimension d, Fractional v) => UnitMap v -> Maybe (Unit Composite d v)
-lookup m = join . fmap promote $ lookupAny (toSIBasis (Proxy :: Proxy d)) m
+lookup m = join . fmap promote $ lookupAny dim m
+         where dim = toSIBasis (Proxy :: Proxy d)
 
 lookupAny :: Dimension' -> UnitMap v -> Maybe (AnyUnit v)
 lookupAny d (UnitMap m) = M.lookup d m
