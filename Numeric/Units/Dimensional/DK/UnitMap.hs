@@ -47,7 +47,7 @@ insertAny :: AnyUnit v -> UnitMap v -> UnitMap v
 insertAny u@(AnyUnit d _ _) (UnitMap m) = UnitMap $ (M.insert d u) m
 
 lookup :: forall d v.(KnownDimension d, Fractional v) => UnitMap v -> Maybe (Unit Composite d v)
-lookup m = join . fmap promote $ lookupAny dim m
+lookup m = lookupAny dim m >>= promote
          where dim = toSIBasis (Proxy :: Proxy d)
 
 lookupAny :: Dimension' -> UnitMap v -> Maybe (AnyUnit v)
