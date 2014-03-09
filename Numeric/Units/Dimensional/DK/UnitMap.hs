@@ -59,7 +59,7 @@ lookup' :: (KnownDimension d, Fractional v) => UnitMap v -> Unit Composite d v
 lookup' = lookupWithDefault siUnit
 
 showUsing :: (KnownDimension d, Show v, Fractional v) => UnitMap v -> Quantity d v -> String
-showUsing m q = showIn (lookup' m) q
+showUsing = showIn . lookup'
 
 {-
 From table 3a of the NIST guide, copied from SIUnits module:
