@@ -54,14 +54,15 @@ lookupAny d (UnitMap m) = M.lookup d m
 
 type UnitScheme v = (forall d.(KnownDimension d, Fractional v) => Unit Composite d v)
 
-lookupWithDefault :: forall d v.(KnownDimension d, Fractional v) => UnitScheme v -> UnitMap v -> Unit Composite d v
+lookupWithDefault :: forall d v.(Fractional v) => UnitScheme v -> UnitMap v -> UnitScheme v
 lookupWithDefault d m = fromMaybe d (lookup m)
 
-lookup' :: (KnownDimension d, Fractional v) => UnitMap v -> Unit Composite d v
+lookup' :: (Fractional v) => UnitMap v -> UnitScheme v
 lookup' = lookupWithDefault siUnit
 
-showUsing :: (KnownDimension d, Show v, Fractional v) => UnitMap v -> Quantity d v -> String
-showUsing = showIn . lookup'
+showUsing :: (KnownDimension d, Show v, Fractional v) => UnitScheme v -> Quantity d v -> String
+showUsing scheme = showIn scheme -- for some reason this won't type check if you eta convert?
+-- this and UnitScheme should probably migrate to dimensional-dk
 
 {-
 From table 3a of the NIST guide, copied from SIUnits module:
