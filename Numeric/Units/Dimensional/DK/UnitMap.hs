@@ -22,16 +22,29 @@ import Data.Proxy
 import Data.Maybe (fromMaybe)
 
 data AnyUnit v = AnyUnit Dimension' UnitName v
-  deriving (Eq, Show)
+  deriving (Eq, Show) -- TODO: real show instance
 
-demote :: forall a d v.(KnownDimension d, Fractional v) => Unit a d v -> AnyUnit v
-demote u = AnyUnit dim (name u) (u /~ siUnit)
-         where dim = toSIBasis (Proxy :: Proxy d)
+demoteUnit :: forall a d v.(KnownDimension d, Fractional v) => Unit a d v -> AnyUnit v
+demoteUnit u = AnyUnit dim (name u) (u /~ siUnit)
+             where dim = toSIBasis (Proxy :: Proxy d)
 
-promote :: forall d v.(Fractional v, KnownDimension d) => AnyUnit v -> Maybe (Unit Composite d v)
-promote (AnyUnit dim name val) | dim == dim' = Just $ unit name (val *~ siUnit)
-                               | otherwise   = Nothing
-                                             where dim' = toSIBasis (Proxy :: Proxy d)
+promoteUnit :: forall d v.(Fractional v, KnownDimension d) => AnyUnit v -> Maybe (Unit Composite d v)
+promoteUnit (AnyUnit dim name val) | dim == dim' = Just $ unit name (val *~ siUnit)
+                                   | otherwise   = Nothing
+                                                 where dim' = toSIBasis (Proxy :: Proxy d)
+
+data AnyQuantity v = AnyQuantity Dimension' v
+  deriving (Eq, Show) -- TODO: real show instance
+
+demoteQuantity :: forall d v.(KnownDimension d, Fractional v) => Quantity d v -> AnyQuantity v
+demoteQuantity val = AnyQuantity dim (val /~ siUnit)
+                   where dim = toSIBasis (Proxy :: Proxy d)
+
+promoteQuantity :: forall d v.(KnownDimension d, Fractional v) => AnyQuantity v -> Maybe (Quantity d v)
+promoteQuantity (AnyQuantity dim val) | dim == dim' = Just $ val *~ siUnit
+                                      | otherwise   = Nothing
+                                                    where
+                                                      dim' = toSIBasis (Proxy :: Proxy d)
 
 newtype UnitMap v = UnitMap (M.Map Dimension' (AnyUnit v))
   deriving (Show)
@@ -40,13 +53,13 @@ empty :: UnitMap v
 empty = UnitMap (M.empty)
 
 insert :: (KnownDimension d, Fractional v) => Unit a d v -> UnitMap v -> UnitMap v
-insert = insertAny . demote
+insert = insertAny . demoteUnit
 
 insertAny :: AnyUnit v -> UnitMap v -> UnitMap v
 insertAny u@(AnyUnit d _ _) (UnitMap m) = UnitMap $ (M.insert d u) m
 
 lookup :: forall d v.(KnownDimension d, Fractional v) => UnitMap v -> Maybe (Unit Composite d v)
-lookup m = lookupAny dim m >>= promote
+lookup m = lookupAny dim m >>= promoteUnit
          where dim = toSIBasis (Proxy :: Proxy d)
 
 lookupAny :: Dimension' -> UnitMap v -> Maybe (AnyUnit v)
