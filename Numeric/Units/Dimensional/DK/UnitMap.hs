@@ -121,4 +121,5 @@ exampleSI = id
           $ insert ampere
           $ insert second
           $ insert (kilo gram)
-          $ insert meter empty
+          $ insert meter
+          $ empty
