@@ -16,13 +16,16 @@ Define .  -}
 module Numeric.Units.Dimensional.DK.UnitMap where
 
 import Numeric.Units.Dimensional.DK.Prelude hiding (lookup)
-import Numeric.Units.Dimensional.DK.UnitNames (UnitName)
+import Numeric.Units.Dimensional.DK.UnitNames (UnitName, abbreviation)
 import qualified Data.Map as M
 import Data.Proxy
 import Data.Maybe (fromMaybe)
 
 data AnyUnit v = AnyUnit Dimension' UnitName v
-  deriving (Eq, Show) -- TODO: real show instance
+  deriving (Eq) -- TODO: real show instance
+
+instance (Show v) => Show (AnyUnit v) where
+  show (AnyUnit dim name v) = "1 " ++ (abbreviation name) ++ " =def= " ++ (show v) ++ " of the SI base unit"
 
 demoteUnit :: forall a d v.(KnownDimension d, Fractional v) => Unit a d v -> AnyUnit v
 demoteUnit u = AnyUnit dim (name u) (u /~ siUnit)
