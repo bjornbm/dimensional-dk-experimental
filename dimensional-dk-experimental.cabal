@@ -18,6 +18,7 @@ cabal-version:       >=1.10
 
 library
   exposed-modules:     Numeric.Units.Dimensional.DK.UnitMap,
+                       Numeric.Units.Dimensional.DK.Dynamic,
                        Numeric.Units.Dimensional.DK.Time,
                        Numeric.Units.Dimensional.DK.Codata,
                        Numeric.Units.Dimensional.DK.VectorSpace,
