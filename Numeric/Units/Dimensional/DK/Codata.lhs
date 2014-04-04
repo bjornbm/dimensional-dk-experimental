@@ -79,6 +79,9 @@ Define proton-electron mass ratio with its standard value?
 > speedOfLightInVacuum :: (Fractional a) => Velocity a
 > speedOfLightInVacuum = 299792458 *~ (meter / second)
 
+> standardAccelerationOfGravity :: (Fractional a) => Acceleration a
+> standardAccelerationOfGravity = 9.80665 *~ (meter / second^pos2)
+
 Pretty sure this dimension doesn't have a useful name.
 
 > stefanBoltzmannConstant :: (Fractional a) => Quantity (Dim Zero Pos1 Neg3 Zero Neg4 Zero Zero) a
