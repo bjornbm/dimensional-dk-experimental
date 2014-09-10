@@ -6,7 +6,8 @@
     Stability  : Stable
     Portability: GHC only?
 
-Define .  -}
+Define types for manipulation of units and quantities without phantom types for their dimensions.
+-}
 
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE ScopedTypeVariables #-}
@@ -22,9 +23,7 @@ module Numeric.Units.Dimensional.DK.Dynamic
 
 import Numeric.Units.Dimensional.DK.Prelude hiding (lookup)
 import Numeric.Units.Dimensional.DK.UnitNames (UnitName, abbreviation)
-import qualified Data.Map as M
 import Data.Proxy
-import Data.Maybe (fromMaybe)
 
 data AnyQuantity v = AnyQuantity Dimension' v
   deriving (Eq, Show) -- TODO: real show instance
@@ -52,10 +51,10 @@ instance HasDimension (AnyUnit v) where
   getSIBasis (AnyUnit d _ _) = d
 
 demoteUnit :: forall a d v.(KnownDimension d, Fractional v) => Unit a d v -> AnyUnit v
-demoteUnit u = AnyUnit dim (name u) (u /~ siUnit)
+demoteUnit u = AnyUnit dim (unitName u) (u /~ siUnit)
              where dim = toSIBasis (Proxy :: Proxy d)
 
-promoteUnit :: forall d v.(Fractional v, KnownDimension d) => AnyUnit v -> Maybe (Unit Composite d v)
+promoteUnit :: forall d v.(Fractional v, KnownDimension d) => AnyUnit v -> Maybe (Unit NotPrefixable d v)
 promoteUnit (AnyUnit dim name val) | dim == dim' = Just $ unit name (val *~ siUnit)
                                    | otherwise   = Nothing
                                                  where dim' = toSIBasis (Proxy :: Proxy d)

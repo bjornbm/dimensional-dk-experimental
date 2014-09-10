@@ -16,7 +16,6 @@ Define .  -}
 module Numeric.Units.Dimensional.DK.UnitMap where
 
 import Numeric.Units.Dimensional.DK.Prelude hiding (lookup)
-import Numeric.Units.Dimensional.DK.UnitNames (UnitName, abbreviation)
 import Numeric.Units.Dimensional.DK.Dynamic
 import qualified Data.Map as M
 import Data.Proxy
@@ -34,16 +33,16 @@ insert = insertAny . demoteUnit
 insertAny :: AnyUnit v -> UnitMap v -> UnitMap v
 insertAny u (UnitMap m) = UnitMap $ (M.insert (getSIBasis u) u) m
 
-lookup :: forall d v.(KnownDimension d, Fractional v) => UnitMap v -> Maybe (Unit Composite d v)
+lookup :: forall d v.(KnownDimension d, Fractional v) => UnitMap v -> Maybe (Unit NotPrefixable d v)
 lookup m = lookupAny dim m >>= promoteUnit
          where dim = toSIBasis (Proxy :: Proxy d)
 
 lookupAny :: Dimension' -> UnitMap v -> Maybe (AnyUnit v)
 lookupAny d (UnitMap m) = M.lookup d m
 
-type UnitScheme v = (forall d.(KnownDimension d, Fractional v) => Unit Composite d v)
+type UnitScheme v = (forall d.(KnownDimension d, Fractional v) => Unit NotPrefixable d v)
 
-lookupWithDefault :: forall d v.(Fractional v) => UnitScheme v -> UnitMap v -> UnitScheme v
+lookupWithDefault :: forall v.(Fractional v) => UnitScheme v -> UnitMap v -> UnitScheme v
 lookupWithDefault d m = fromMaybe d (lookup m)
 
 lookup' :: (Fractional v) => UnitMap v -> UnitScheme v
