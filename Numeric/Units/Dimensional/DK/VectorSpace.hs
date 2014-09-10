@@ -6,7 +6,8 @@
     Stability  : Stable
     Portability: GHC only?
 
-Define .  -}
+Provides (orphan) instances of 'AdditiveGroup' and 'VectorSpace' for 'Quantity's.
+-}
 
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeFamilies #-}
