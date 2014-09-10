@@ -15,8 +15,6 @@ Define scales for absolute temperature.  -}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE DataKinds #-}
 
-{-# OPTIONS_GHC -fno-warn-orphans #-}
-
 module Numeric.Units.Dimensional.DK.AbsoluteTemperature where
 
 import Numeric.Units.Dimensional.DK.Prelude

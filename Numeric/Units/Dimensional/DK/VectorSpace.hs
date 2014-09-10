@@ -14,6 +14,8 @@ Provides (orphan) instances of 'AdditiveGroup' and 'VectorSpace' for 'Quantity's
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE FlexibleInstances #-}
 
+{-# OPTIONS_GHC -fno-warn-orphans #-}
+
 module Numeric.Units.Dimensional.DK.VectorSpace where
 
 import Numeric.Units.Dimensional.DK.Prelude
