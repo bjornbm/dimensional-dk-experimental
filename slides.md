@@ -1,9 +1,11 @@
-% Introducing dimensional-dk
+% Introducing dimensional-dk:
   Statically Checked Physical Dimensions for Haskells
 % Björn Buckwalter & Doug McClean
 % June 2015
 
 ## Why Check Dimensions?
+
+. . .
 
 The usual reasons:
 
@@ -73,16 +75,57 @@ Both incidents involved more than just software, but you get the idea.
 
 # Examples
 
+## Getting Started
+
+```haskell
+import Numeric.Units.Dimensional.DK.Prelude
+
+```
+
+## Named Units
+
+## Defining Custom Units
+
+## Reading Aircraft State from FlightGear
+
+```haskell
+readState :: [Double] -> VehicleState'
+readState [r, p, y, rDot, pDot, yDot, ax, ay, az, slip, as, vx, vy, vz, msl, agl, lat, lon, et, rpm, temp, statpres, dynpres]
+    = VehicleState' { ... }
+      where
+        _orientation = quaternionFromTaitBryan (y *~ degree) (p *~ degree) (r *~ degree)
+        _orientationRate = quaternionFromTaitBryan (yDot *~ degree) (pDot *~ degree) (rDot *~ degree)
+        _velocity = (V3 vx vy vz) *~~ (foot / second)
+        _acceleration = (V3 ax ay az) *~~ (foot / second / second)
+        _sideSlip = slip *~ degree
+        _airspeed = as *~ (nauticalMile / hour)
+        _altitudeMSL = msl *~ foot
+        _altitudeAGL = agl *~ foot
+        _location = GeodeticPlace . fromJust $ lat <°> lon
+        _elapsedTime = et *~ second
+        _propellerSpeed = rpm *~ (revolution / minute)
+        _staticPressure = statpres *~ inHg
+        _dynamicPressure = dynpres *~ (poundForce / square foot)
+```
+
 # Internals
 
 # Ecosystem
 
 ## dimensional-dk-experimental
 
-## igrf-dimensional
+## igrf-dimensional-dk
 
-## atmos-dimensional
+The International Geomagnetic Reference Field, 12th Ediition, with dimensional types.
+
+## atmos-dimensional-dk
+
+The 1976 International Standard Atmosphere with dimensional types.
 
 # Future Work
 
 ## Linear Algebra
+
+n + m - 1 = n-1 + m-1 + 1
+
+Need for Abelian group unification typechecker plugin
