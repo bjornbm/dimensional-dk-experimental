@@ -56,7 +56,7 @@ Both incidents involved more than just software, but you get the idea.
 
 ## What Don't We Have?
 
-- Custom dimensions or polymorphism over basis
+> - Custom dimensions or polymorphism over basis
     - No frogs / square mile
     - You have to live with our decision not to encode angle as a dimension
     - CGS ESU units are treated as equivalents in SI basis
@@ -73,7 +73,19 @@ Both incidents involved more than just software, but you get the idea.
     - Intentionally omitted, since it can be used to break scale-invariance
     - Provided as an orphan in `Numeric.Units.Dimensional.DK.Functor`
 
+## What Don't We Have?
+
+- A benchmark suite
+- Appropriate `INLINE`, `SPECIALIZE`, and `RULES` pragmas arising from same
+
 # Examples
+
+## Getting Started
+
+```bash
+cabal update
+cabal install dimensional-dk -j
+```
 
 ## Getting Started
 
@@ -83,8 +95,6 @@ import Numeric.Units.Dimensional.DK.Prelude
 ```
 
 ## Named Units
-
-## Defining Custom Units
 
 ## Reading Aircraft State from FlightGear
 
@@ -108,11 +118,43 @@ readState [r, p, y, rDot, pDot, yDot, ax, ay, az, slip, as, vx, vy, vz, msl, agl
         _dynamicPressure = dynpres *~ (poundForce / square foot)
 ```
 
+## Defining Custom Units
+
 # Internals
 
 # Ecosystem
 
 ## dimensional-dk-experimental
+
+A grab bag of goodies with extra dependencies
+
+. . .
+
+> - CODATA Values (not to be confused with codata...)
+> - `AnyQuantity` and `AnyUnit` for quantities with statically unknown dimensions
+> - Absolute temperatures
+> - dimensional-dk plus:
+    - time
+    - ad (for scalar functions only at this point)
+    - vector-space
+    - linear (with the orphan `Functor` instance...)
+    - HaTeX (and siunitx)
+
+## exact-pi
+
+```haskell
+data ExactPi = Exact Integer Rational
+             | Approximate (forall a.Floating a => a)
+
+approximateValue :: Floating a => ExactPi -> a
+```
+
+> Provides an exact representation of positive rational multiples of integer powers of pi
+> Provides `Num`, `Fractional`, `Floating` instances which fall back to `Approximate` where necessary
+> Non-zero such numbers form a group under multiplication
+> All exactly defined units we have encountered in practice have an exact representation
+> Universal type of `Approximate` defers computations with `pi` until after the desired result type
+  has been selected.
 
 ## igrf-dimensional-dk
 
@@ -129,3 +171,13 @@ The 1976 International Standard Atmosphere with dimensional types.
 n + m - 1 = n-1 + m-1 + 1
 
 Need for Abelian group unification typechecker plugin
+
+## Contributing
+
+Suggestions and pull requests are welcome.
+
+Issue tracker and source repository are at:
+
+https://github.com/bjornbm/dimensional-dk
+
+# Questions
