@@ -149,12 +149,12 @@ data ExactPi = Exact Integer Rational
 approximateValue :: Floating a => ExactPi -> a
 ```
 
-> Provides an exact representation of positive rational multiples of integer powers of pi
-> Provides `Num`, `Fractional`, `Floating` instances which fall back to `Approximate` where necessary
-> Non-zero such numbers form a group under multiplication
-> All exactly defined units we have encountered in practice have an exact representation
-> Universal type of `Approximate` defers computations with `pi` until after the desired result type
-  has been selected.
+> - Provides an exact representation of positive rational multiples of integer powers of pi
+> - Provides `Num`, `Fractional`, `Floating` instances which fall back to `Approximate` where necessary
+> - Non-zero such numbers form a group under multiplication
+> - All exactly defined units we have encountered in practice have an exact representation
+> - Universal type of `Approximate` defers computations with `pi`, `+`, etc. until after the desired result type
+    has been selected.
 
 ## igrf-dimensional-dk
 
