@@ -1,5 +1,5 @@
 % Introducing dimensional-dk:
-  Statically Checked Physical Dimensions for Haskells
+  Statically Checked Physical Dimensions for Haskell
 % Björn Buckwalter & Doug McClean
 % June 2015
 
@@ -149,7 +149,7 @@ data ExactPi = Exact Integer Rational
 approximateValue :: Floating a => ExactPi -> a
 ```
 
-> - Provides an exact representation of positive rational multiples of integer powers of pi
+> - Provides an exact representation of rational multiples of integer powers of pi
 > - Provides `Num`, `Fractional`, `Floating` instances which fall back to `Approximate` where necessary
 > - Non-zero such numbers form a group under multiplication
 > - All exactly defined units we have encountered in practice have an exact representation
