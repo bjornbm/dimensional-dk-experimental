@@ -17,12 +17,12 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 library
-  exposed-modules:     Numeric.Units.Dimensional.DK.UnitMap,
-                       Numeric.Units.Dimensional.DK.Dynamic,
-                       Numeric.Units.Dimensional.DK.Time,
+  exposed-modules:     Numeric.Units.Dimensional.DK.Time,
                        Numeric.Units.Dimensional.DK.Codata,
                        Numeric.Units.Dimensional.DK.VectorSpace,
                        Numeric.Units.Dimensional.DK.AbsoluteTemperature
+                       --Numeric.Units.Dimensional.DK.UnitMap,
+                       -- Numeric.Units.Dimensional.DK.Dynamic,
   -- other-modules:       
   -- other-extensions:    
   build-depends:       base >=4.7 && <5,
