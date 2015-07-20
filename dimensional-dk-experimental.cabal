@@ -20,12 +20,14 @@ library
   exposed-modules:     Numeric.Units.Dimensional.DK.Time,
                        Numeric.Units.Dimensional.DK.Codata,
                        Numeric.Units.Dimensional.DK.VectorSpace,
-                       Numeric.Units.Dimensional.DK.AbsoluteTemperature
+                       Numeric.Units.Dimensional.DK.AbsoluteTemperature,
+                       Numeric.Units.Dimensional.DK.Solver
                        --Numeric.Units.Dimensional.DK.UnitMap,
                        -- Numeric.Units.Dimensional.DK.Dynamic,
   -- other-modules:       
   -- other-extensions:    
   build-depends:       base >=4.7 && <5,
+                       ghc >=7.10 && <7.12,
                        time >=1.4 && <1.6,
                        dimensional-dk >=0.7,
                        numtype-dk >= 0.4,
