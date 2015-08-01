@@ -28,6 +28,7 @@ library
   -- other-extensions:    
   build-depends:       base >=4.7 && <5,
                        ghc >=7.10 && <7.12,
+                       ghc-tcplugins-extra >=0.1 && <0.2,
                        time >=1.4 && <1.6,
                        dimensional-dk >=0.7,
                        numtype-dk >= 0.4,

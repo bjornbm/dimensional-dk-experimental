@@ -21,6 +21,9 @@ module Numeric.Units.Dimensional.DK.Solver
 )
 where
 
+import Numeric.Units.Dimensional.DK.Solver.NormalForm
+import Numeric.Units.Dimensional.DK.Solver.Unification
+
 -- GHC API
 import Outputable (Outputable (..), (<+>), ($$), text)
 import Plugins    (Plugin (..), defaultPlugin)
@@ -31,6 +34,7 @@ import TcRnTypes  (Ct, TcPlugin (..), TcPluginResult(..), ctEvidence, ctEvPred,
 import TcType     (mkEqPred, typeKind)
 import Type       (EqRel (NomEq), Kind, PredTree (EqPred), Type, TyVar,
                    classifyPredType, mkTyVarTy)
+import TyCon      (TyCon)
 
 -- | To use the plugin, add
 --
@@ -41,3 +45,5 @@ import Type       (EqRel (NomEq), Kind, PredTree (EqPred), Type, TyVar,
 -- To the header of your file.
 plugin :: Plugin
 plugin = defaultPlugin { tcPlugin = const $ Nothing }
+
+
