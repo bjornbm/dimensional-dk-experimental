@@ -138,8 +138,8 @@ instance Outputable SimplifyResult where
   ppr (Simplified ss)     = text "Simplified" $$ ppr ss
   ppr (Impossible eq eqs) = text "Impossible" <+> ppr eq <+> ppr eqs
 
-simplifyUnits :: Definitions -> [DimEquality] -> TcPluginM SimplifyResult
-simplifyUnits uds eqs0 = tcPluginTrace "simplifyUnits" (ppr eqs0) >> simples initialState eqs0
+simplifyDims :: Definitions -> [DimEquality] -> TcPluginM SimplifyResult
+simplifyDims uds eqs0 = tcPluginTrace "simplifyUnits" (ppr eqs0) >> simples initialState eqs0
   where
     simples :: SimplifyState -> [DimEquality] -> TcPluginM SimplifyResult
     simples ss [] = return $ Simplified ss
