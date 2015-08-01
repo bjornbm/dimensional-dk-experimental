@@ -44,9 +44,9 @@ Both incidents involved more than just software, but you get the idea.
     - `type Length a = Quantity DLength a`
     - `type Capacitance a = ...`
 - Pretty Printing
-    - Choose display units with `showIn`
+    - Choose display units with `showIn` (not yet in master)
     - `Show` instance defaults to SI base units
-- Exact Conversion Factors Using exact-pi
+- Exact Conversion Factors Using exact-pi (not yet in master)
 
 ## What Goodies Do We Have?
 
@@ -58,7 +58,8 @@ Both incidents involved more than just software, but you get the idea.
 
 > - Custom dimensions or polymorphism over basis
     - No frogs / square mile
-    - You have to live with our decision not to encode angle as a dimension
+    - You have to live with our decision not to encode angle as a dimension, although
+      doing so is potentially useful from an engineering perspective
     - CGS ESU units are treated as equivalents in SI basis
 
 ## What Don't We Have?
@@ -77,6 +78,21 @@ Both incidents involved more than just software, but you get the idea.
 
 - A benchmark suite
 - Appropriate `INLINE`, `SPECIALIZE`, and `RULES` pragmas arising from same
+
+## What Don't We Have?
+
+- A type solver plugin, like Adam Gundry's
+
+It's very useful for code that is heavily polymorphic in dimension. For example, our attempts
+to build a usable dimensionally-typed linear algebra library have been hampered by error messages of
+the form:
+
+```
+Couldn't match type `((x / iv) / u) * u' 
+               with `((x / iv) / x) * x'
+```
+
+I'm working on developing this, but could use some help.
 
 # Examples
 
@@ -156,21 +172,25 @@ approximateValue :: Floating a => ExactPi -> a
 > - Universal type of `Approximate` defers computations with `pi`, `+`, etc. until after the desired result type
     has been selected.
 
-## igrf-dimensional-dk
+## igrf and atmos
 
-The International Geomagnetic Reference Field, 12th Ediition, with dimensional types.
+We have dimensionally typed wrappers around some libraries that provide physical information, for example
 
-## atmos-dimensional-dk
-
-The 1976 International Standard Atmosphere with dimensional types.
+- igrf, which implements the International Geomagnetic Reference Field
+- atmos, which implements the 1976 International Standard Atmosphere
 
 # Future Work
 
 ## Linear Algebra
 
-n + m - 1 = n-1 + m-1 + 1
+An n * m matrix doesn't have n * m independent choices of dimension, it only
+has n + m - 1. You can multiple A and B only when the relationship between the dimensions of
+the columns of A is the inverse of the relationship between the dimensions of the rows of B.
 
-Need for Abelian group unification typechecker plugin
+We have a library that models this, but it isn't particularly useful without the typechecker plugin
+because only monomorphic uses of it are checked.
+
+If we can fix it up it will be very useful for control engineering problems.
 
 ## Contributing
 
