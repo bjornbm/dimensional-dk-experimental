@@ -14,7 +14,7 @@ import Name
 import Outputable
 import TcPluginM
 import TcRnTypes (Ct)
-import TcRnMonad ( Ct, isGiven, ctEvidence )
+import TcRnMonad ( isGiven, ctEvidence )
 import TcType
 import Type
 import Var

@@ -52,7 +52,7 @@ normaliseDim :: Definitions -> Type -> Maybe NormDim
 normaliseDim uds ty | Just ty1 <- tcView ty = normaliseDim uds ty1
 normaliseDim _   (TyVarTy v)               = pure $ var v
 normaliseDim uds (TyConApp tc tys)
-  | tc == dimTyCon      uds, ds@[Just l, Just m, Just t, Just i, Just th, Just n, Just j] <- fmap (fromTypeInt uds) tys = pure . lit . makeProduct . fmap fromJust $ ds
+  | tc == dimTyCon      uds, ds@[Just _, Just _, Just _, Just _, Just _, Just _, Just _] <- fmap (fromTypeInt uds) tys = pure . lit . makeProduct . fmap fromJust $ ds
   | tc == mulTyCon      uds, [x, y] <- tys = (*) <$> normaliseDim uds x <*> normaliseDim uds y
   | tc == divTyCon      uds, [x, y] <- tys = (/) <$> normaliseDim uds x <*> normaliseDim uds y
   | tc == expTyCon      uds, [x, n] <- tys = (^) <$> normaliseDim uds x <*> isNumLitTy n

@@ -1,6 +1,5 @@
 {-# OPTIONS_HADDOCK show-extensions #-}
 
-{-# LANGUAGE CPP #-}
 {-# LANGUAGE RecordWildCards #-}
 
 {- |
@@ -26,7 +25,6 @@ where
 
 import Data.Either
 
-import Numeric.Units.Dimensional.DK.Solver.NormalForm
 import Numeric.Units.Dimensional.DK.Solver.Unification
 import Numeric.Units.Dimensional.DK.Solver.SpecialTypes
 import Numeric.Units.Dimensional.DK.Solver.TcPluginExtras
@@ -37,13 +35,10 @@ import TcEvidence
 import TcRnTypes
 import TcType
 import TcPluginM
-import Coercion
-import BasicTypes
 import DataCon
 import Type
 import TyCon
 import TypeRep
-import TysWiredIn
 import FastString
 import Outputable
 import OccName ( occName, occNameFS, mkTcOcc )
@@ -143,14 +138,7 @@ dimensionSolver uds givens _deriveds wanteds = do
 
 
 
-pair_tycon, pair_con :: TyCon
-#if __GLASGOW_HASKELL__ >= 711
-pair_tycon = promotedTupleTyCon   Boxed 2
-pair_con   = promotedTupleDataCon Boxed 2
-#else
-pair_tycon = promotedTupleTyCon   BoxedTuple 2
-pair_con   = promotedTupleDataCon BoxedTuple 2
-#endif
+
 
 substItemToCt :: Definitions -> SubstItem -> TcPluginM Ct
 substItemToCt uds si
@@ -185,7 +173,7 @@ fromDimEquality (ct, _, _) = ct
 -- | Produce bogus evidence for a constraint, including actual
 -- equality constraints. (and our fake '(~~)' equality constraints?)
 evMagic :: Definitions -> Ct -> EvTerm
-evMagic uds ct = case classifyPredType $ ctEvPred $ ctEvidence ct of
+evMagic _ ct = case classifyPredType $ ctEvPred $ ctEvidence ct of
     EqPred NomEq t1 t2   -> evByFiat "dimensions" t1 t2
     _                    -> error "evMagic"
 {-
