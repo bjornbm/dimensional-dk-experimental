@@ -1,4 +1,12 @@
 module Numeric.Units.Dimensional.DK.Solver.SpecialTypes
+(
+  Definitions(..),
+  normaliseDim,
+  reifyDim,
+  fromTypeInt,
+  toTypeInt,
+  isDimKind
+)
 where
 
 import Prelude hiding ((*), (/), (^), recip)
@@ -15,7 +23,7 @@ import Type
 import TypeRep
 import TcType
 
-data Definitions = Definitions
+data Definitions = Definitions 
     { dimKindCon :: TyCon -- the 'Dimension' type constructor, to be promoted to a kind
     , dimTyCon :: TyCon -- the 'Dim' constructor of type 'Dimension', promoted to a type constructor
     , dimKind :: Kind -- the kind of type-level dimensions
@@ -31,6 +39,12 @@ data Definitions = Definitions
     , neg10MinusTyCon :: TyCon -- the Neg10Minus constructor of type 'TypeInt', promoted to a type constructor
     , pos10PlusTyCon :: TyCon -- the Pos10Plus constructor of type 'TypeInt', promoted to a type constructor
     }
+
+
+-- | Is this the 'Dimension' kind?
+isDimKind :: Definitions -> Kind -> Bool
+isDimKind uds ty | Just (tc, _) <- tcSplitTyConApp_maybe ty = tc == dimKindCon uds
+                  | otherwise                                = False
 
 -- | Try to convert a type to a unit normal form; this does not check
 -- the type has kind 'Unit', and may fail even if it does.
@@ -50,11 +64,11 @@ normaliseDim uds (TyConApp tc tys)
 normaliseDim _ _ = Nothing
 
 -- | Convert a dimension normal form to a type expression of kind 'Dimension'
-reifyUnit :: Definitions -> NormDim -> Type
-reifyUnit uds u | null xs && null ys = oneTy uds
-                | null ys            = foldr1 times xs
-                | null xs            = oneTy uds `divide` foldr1 times ys
-                | otherwise          = foldr1 times xs `divide` foldr1 times ys
+reifyDim :: Definitions -> NormDim -> Type
+reifyDim uds u | null xs && null ys = oneTy uds
+               | null ys            = foldr1 times xs
+               | null xs            = oneTy uds `divide` foldr1 times ys
+               | otherwise          = foldr1 times xs `divide` foldr1 times ys
   where
     (pos, neg) = partition ((> 0) . snd) $ ascending u
     xs = map fromAtom            pos

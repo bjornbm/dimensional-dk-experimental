@@ -2,7 +2,7 @@
 -- further documentation, see http://haskell.org/cabal/users-guide/
 
 name:                dimensional-dk-experimental
-version:             0.1.0.0
+version:             0.2.0.0
 synopsis:            Experimental and draft modules for dimensional-dk.
 -- description:         
 homepage:            http://github.com/bjornbm/dimensional-dk-experimental
@@ -24,7 +24,10 @@ library
                        Numeric.Units.Dimensional.DK.Solver
                        --Numeric.Units.Dimensional.DK.UnitMap,
                        -- Numeric.Units.Dimensional.DK.Dynamic,
-  -- other-modules:       
+  other-modules:       Numeric.Units.Dimensional.DK.Solver.NormalForm,
+                       Numeric.Units.Dimensional.DK.Solver.SpecialTypes,
+                       Numeric.Units.Dimensional.DK.Solver.TcPluginExtras,
+                       Numeric.Units.Dimensional.DK.Solver.Unification
   -- other-extensions:    
   build-depends:       base >=4.7 && <5,
                        ghc >=7.10 && <7.12,
