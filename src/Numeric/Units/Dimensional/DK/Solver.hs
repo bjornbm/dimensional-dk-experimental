@@ -122,25 +122,21 @@ dimensionSolver uds givens _deriveds []      = do
 
 
 dimensionSolver uds givens _deriveds wanteds = do
-  xs <- lookForUnpacks uds givens wanteds
-  case null xs of
-   False -> return $ TcPluginOk [] xs
-   True  -> do
-    let (unit_wanteds, _) = partitionEithers $ map (toDimEquality uds) wanteds
-    case unit_wanteds of
-      []    -> return $ TcPluginOk [] []
-      (_:_) -> do
-        (unit_givens , _) <- partitionEithers . map (toDimEquality uds) <$> mapM zonkCt givens
-        sr <- simplifyUnits uds unit_givens
-        tcPluginTrace "dimensionSolver simplified givens" $ ppr sr
-        case sr of
-          Impossible eq _ -> return $ TcPluginContradiction [fromDimEquality eq]
-          Simplified ss   -> do sr' <- simplifyUnits uds $ map (substsDimEquality (simplifySubst ss)) unit_wanteds
-                                tcPluginTrace "dimensionSolver simplified wanteds" $ ppr sr'
-                                case sr' of
-                                  Impossible eq _ -> return $ TcPluginContradiction [fromDimEquality $ substsDimEquality (simplifyUnsubst ss) eq]
-                                  Simplified ss'  -> TcPluginOk [ (evMagic uds ct, ct) | eq <- simplifySolved ss', let ct = fromDimEquality eq ]
-                                                         <$> mapM (substItemToCt uds) (filter (isWanted . ctEvidence . siCt) (substsSubst (simplifyUnsubst ss) (simplifySubst ss')))
+  let (unit_wanteds, _) = partitionEithers $ map (toDimEquality uds) wanteds
+  case unit_wanteds of
+    []    -> return $ TcPluginOk [] []
+    (_:_) -> do
+      (unit_givens , _) <- partitionEithers . map (toDimEquality uds) <$> mapM zonkCt givens
+      sr <- simplifyUnits uds unit_givens
+      tcPluginTrace "dimensionSolver simplified givens" $ ppr sr
+      case sr of
+        Impossible eq _ -> return $ TcPluginContradiction [fromDimEquality eq]
+        Simplified ss   -> do sr' <- simplifyUnits uds $ map (substsDimEquality (simplifySubst ss)) unit_wanteds
+                              tcPluginTrace "dimensionSolver simplified wanteds" $ ppr sr'
+                              case sr' of
+                                Impossible eq _ -> return $ TcPluginContradiction [fromDimEquality $ substsDimEquality (simplifyUnsubst ss) eq]
+                                Simplified ss'  -> TcPluginOk [ (evMagic uds ct, ct) | eq <- simplifySolved ss', let ct = fromDimEquality eq ]
+                                                       <$> mapM (substItemToCt uds) (filter (isWanted . ctEvidence . siCt) (substsSubst (simplifyUnsubst ss) (simplifySubst ss')))
 
 
 
@@ -185,9 +181,6 @@ toDimEquality uds ct = case classifyPredType $ ctEvPred $ ctEvidence ct of
 
 fromDimEquality :: DimEquality -> Ct
 fromDimEquality (ct, _, _) = ct
-
-lookForUnpacks :: Definitions -> [Ct] -> [Ct] -> TcPluginM [Ct]
-lookForUnpacks _ _ _ = return []
 
 -- | Produce bogus evidence for a constraint, including actual
 -- equality constraints. (and our fake '(~~)' equality constraints?)
