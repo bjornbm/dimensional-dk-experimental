@@ -61,12 +61,12 @@ instance Outputable UnificationResult where
   ppr (Draw tvs subst unsubst) = text "Draw" <+> ppr tvs <+> ppr subst <+> ppr unsubst
   ppr Lose                     = text "Lose"
 
--- | Attempt to unify two normalised units to produce a unifying
+-- | Attempt to unify two normalised dimensions to produce a unifying
 -- substitution.  The 'Ct' is the equality between the non-normalised
--- (and perhaps less substituted) unit type expressions.
-unifyUnits :: Definitions -> DimEquality -> TcPluginM UnificationResult
-unifyUnits uds (ct, u0, v0) = do tcPluginTrace "unifyUnits" (ppr u0 $$ ppr v0)
-                                 unifyOne uds ct [] [] [] (u0 / v0)
+-- (and perhaps less substituted) dimension type expressions.
+unifyDims :: Definitions -> DimEquality -> TcPluginM UnificationResult
+unifyDims uds (ct, u0, v0) = do tcPluginTrace "unifyUnits" (ppr u0 $$ ppr v0)
+                                unifyOne uds ct [] [] [] (u0 / v0)
 
 unifyOne :: Definitions -> Ct -> [TyVar] -> TySubst -> TySubst -> NormDim -> TcPluginM UnificationResult
 unifyOne uds ct tvs subst unsubst u
@@ -144,7 +144,7 @@ simplifyDims uds eqs0 = tcPluginTrace "simplifyUnits" (ppr eqs0) >> simples init
     simples :: SimplifyState -> [DimEquality] -> TcPluginM SimplifyResult
     simples ss [] = return $ Simplified ss
     simples ss (eq:eqs) = do
-        ur <- unifyUnits uds (substsDimEquality (simplifySubst ss) eq)
+        ur <- unifyDims uds (substsDimEquality (simplifySubst ss) eq)
         tcPluginTrace "unifyUnits result" (ppr ur)
         case ur of
           Win  tvs subst unsubst -> let (ss', xs) = win eq tvs subst unsubst ss
