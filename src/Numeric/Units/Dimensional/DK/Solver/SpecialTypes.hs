@@ -1,3 +1,22 @@
+{- |
+   Copyright  : Copyright (C) 2006-2015 Douglas McClean, Adam Gundry
+   License    : BSD3
+
+   Maintainer : douglas.mcclean@gmail.com
+   Stability  : Experimental
+   Portability: GHC only
+
+= Summary
+
+Machinery that allows the type checker plugin to interact with the types that it gives
+special attention.
+
+= Copyright
+
+Extensive portions of this file were modified from Adam Gundry's uom-plugin work. His
+extensive contributions and paper are gratefully acknowledged.
+
+-}
 module Numeric.Units.Dimensional.DK.Solver.SpecialTypes
 (
   Definitions(..),

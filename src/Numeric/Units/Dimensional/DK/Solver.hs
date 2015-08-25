@@ -3,7 +3,7 @@
 {-# LANGUAGE RecordWildCards #-}
 
 {- |
-   Copyright  : Copyright (C) 2006-2015 Douglas McClean
+   Copyright  : Copyright (C) 2006-2015 Douglas McClean, Adam Gundry
    License    : BSD3
 
    Maintainer : douglas.mcclean@gmail.com
@@ -15,6 +15,11 @@
 A type checker plugin for GHC that can perform unification in the Abelian
 group of types of kind 'Numeric.Units.Dimensional.DK.Dimensions.TypeLevel.Dimension'
 under 'Numeric.Units.Dimensional.DK.Dimensions.TypeLevel.*'.
+
+= Copyright
+
+Extensive portions of this file were modified from Adam Gundry's uom-plugin work. His
+extensive contributions and paper are gratefully acknowledged.
 
 -}
 module Numeric.Units.Dimensional.DK.Solver
