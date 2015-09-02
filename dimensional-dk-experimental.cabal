@@ -19,6 +19,7 @@ cabal-version:       >=1.10
 library
   exposed-modules:     Numeric.Units.Dimensional.DK.Time,
                        Numeric.Units.Dimensional.DK.Codata,
+                       Numeric.Units.Dimensional.DK.Composite,
                        Numeric.Units.Dimensional.DK.VectorSpace,
                        Numeric.Units.Dimensional.DK.AbsoluteTemperature,
                        Numeric.Units.Dimensional.DK.Solver
