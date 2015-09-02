@@ -58,12 +58,12 @@ molarGasConstant = 8.3144621 *~ (joule / (mole * kelvin))
 
 -- Pretty sure this dimension doesn't have a useful name.
 
-newtonianConstantOfGravitation :: (Fractional a) => Quantity ('Dim 'Pos3 'Neg1 'Neg2 'Zero 'Zero 'Zero 'Zero 'Zero 'Zero) a
+newtonianConstantOfGravitation :: (Fractional a) => Quantity ('Dim 'Pos3 'Neg1 'Neg2 'Zero 'Zero 'Zero 'Zero) a
 newtonianConstantOfGravitation = 6.67384e-11 *~ (newton * (meter / kilo gram)^pos2)
 
 -- Alias this dimension as DAction? Seems rarely used?
 
-planckConstant :: (Fractional a) => Quantity ('Dim 'Pos2 'Pos1 'Neg1 'Zero 'Zero 'Zero 'Zero 'Zero 'Zero) a
+planckConstant :: (Fractional a) => Quantity ('Dim 'Pos2 'Pos1 'Neg1 'Zero 'Zero 'Zero 'Zero) a
 planckConstant = 6.62606957e-34 *~ (joule * second)
 
 -- Define reduced planck constant (planck constant over 2 pi) with its standard value?
@@ -84,5 +84,5 @@ standardAccelerationOfGravity = 9.80665 *~ (meter / second^pos2)
 
 -- Pretty sure this dimension doesn't have a useful name.
 
-stefanBoltzmannConstant :: (Fractional a) => Quantity ('Dim 'Zero 'Pos1 'Neg3 'Zero 'Neg4 'Zero 'Zero 'Zero 'Zero) a
+stefanBoltzmannConstant :: (Fractional a) => Quantity ('Dim 'Zero 'Pos1 'Neg3 'Zero 'Neg4 'Zero 'Zero) a
 stefanBoltzmannConstant = 5.670373e-8 *~ (watt * meter^neg2 * kelvin^neg4)
