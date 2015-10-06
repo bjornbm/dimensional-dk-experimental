@@ -22,12 +22,12 @@ library
                        Numeric.Units.Dimensional.DK.Composite,
                        Numeric.Units.Dimensional.DK.VectorSpace,
                        Numeric.Units.Dimensional.DK.AbsoluteTemperature,
-                       Numeric.Units.Dimensional.DK.Solver
-                       --Numeric.Units.Dimensional.DK.UnitMap,
-                       -- Numeric.Units.Dimensional.DK.Dynamic,
+                       Numeric.Units.Dimensional.DK.Solver,
+                       Numeric.Units.Dimensional.DK.UnitMap
   -- other-modules:       
   -- other-extensions:    
   build-depends:       base >=4.7 && <5,
+                       exact-pi >= 0.2.1,
                        ghc >=7.10 && <7.12,
                        time >=1.4 && <1.6,
                        dimensional-dk >=0.7,
