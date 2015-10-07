@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{siunitx}
+\usepackage[utf8]{inputenc}
+\author{Douglas McClean}
+\title{Using \emph{dimensional} with \emph{haskintex}}
+\begin{document}
+\begin{haskellpragmas}
+{-# LANGUAGE OverloadedStrings #-}
+\end{haskellpragmas}
+
+\maketitle
+
+\begin{writehaskell}
+import Numeric.Units.Dimensional.DK.Prelude
+import Numeric.Units.Dimensional.DK.NonSI
+import Numeric.Units.Dimensional.DK.HaTeX
+
+import Text.LaTeX
+
+earthRadius :: Length Double
+earthRadius = 3959 *~ mile
+
+\end{writehaskell}
+
+The radius of the Earth is not \hatex{earthRadius}.
+\end{document}
