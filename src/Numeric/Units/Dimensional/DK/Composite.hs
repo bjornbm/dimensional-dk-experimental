@@ -2,7 +2,7 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Numeric.Units.Dimensional.DK.Composite 
+module Numeric.Units.Dimensional.DK.Composite
 (
   CompositeUnit,
   showIn',
@@ -13,8 +13,8 @@ module Numeric.Units.Dimensional.DK.Composite
   poundOunce
 ) where
 
-import Numeric.Units.Dimensional.DK.Prelude
-import Numeric.Units.Dimensional.DK.NonSI
+import Numeric.Units.Dimensional.Prelude
+import Numeric.Units.Dimensional.NonSI
 
 -- non-empty list of units
 data CompositeUnit d a = Atomic (Unit 'NonMetric d a)

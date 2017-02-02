@@ -17,8 +17,8 @@ Define scales for absolute temperature.  -}
 
 module Numeric.Units.Dimensional.DK.AbsoluteTemperature where
 
-import Numeric.Units.Dimensional.DK.Prelude
-import Numeric.Units.Dimensional.DK.NonSI
+import Numeric.Units.Dimensional.Prelude
+import Numeric.Units.Dimensional.NonSI
 import Numeric.Units.Dimensional.DK.VectorSpace() -- import instances
 import Data.AffineSpace
 import qualified Prelude ((-))
