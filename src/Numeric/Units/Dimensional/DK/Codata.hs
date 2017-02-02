@@ -8,9 +8,9 @@ module Numeric.Units.Dimensional.DK.Codata
 where
 
 import Prelude hiding ((*), (/), (^), pi)
-import Numeric.Units.Dimensional.DK
-import Numeric.Units.Dimensional.DK.Quantities
-import Numeric.Units.Dimensional.DK.SIUnits
+import Numeric.Units.Dimensional
+import Numeric.Units.Dimensional.Quantities
+import Numeric.Units.Dimensional.SIUnits
 import Numeric.NumType.DK.Integers (TypeInt(..),neg4,neg2,neg1,pos2)
 
 atomicMassConstant :: (Fractional a) => Mass a
