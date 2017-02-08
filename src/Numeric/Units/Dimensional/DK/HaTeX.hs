@@ -8,7 +8,7 @@ module Numeric.Units.Dimensional.DK.HaTeX
 where
 
 import Text.LaTeX.Base
-import Numeric.Units.Dimensional.DK
+import Numeric.Units.Dimensional
 
 instance (Texy v, KnownDimension d, Fractional v) => Texy (Quantity d v) where
   texy val = texy (val /~ siUnit)
