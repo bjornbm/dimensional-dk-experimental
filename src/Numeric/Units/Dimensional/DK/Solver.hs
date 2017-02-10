@@ -1,4 +1,5 @@
 {-# OPTIONS_HADDOCK show-extensions #-}
+{-# LANGUAGE CPP #-}
 
 {- |
    Copyright  : Copyright (C) 2006-2015 Douglas McClean
@@ -28,9 +29,15 @@ import TcEvidence (EvTerm)
 import TcPluginM  (TcPluginM, tcPluginIO, tcPluginTrace, zonkCt)
 import TcRnTypes  (Ct, TcPlugin (..), TcPluginResult(..), ctEvidence, ctEvPred,
                    ctPred, ctLoc, isGiven, isWanted, mkNonCanonical)
-import TcType     (mkEqPred, typeKind)
+#if __GLASGOW_HASKELL__ >= 711
+import TcType     (typeKind)  -- GHC >= 7.11
+import Type       (EqRel (NomEq), Kind, PredTree (EqPred), Type, TyVar,
+                   classifyPredType, mkTyVarTy, mkPrimEqPred)
+#else
+import TcType     (mkEqPred, typeKind)  -- GHC < 7.11
 import Type       (EqRel (NomEq), Kind, PredTree (EqPred), Type, TyVar,
                    classifyPredType, mkTyVarTy)
+#endif
 
 -- | To use the plugin, add
 --

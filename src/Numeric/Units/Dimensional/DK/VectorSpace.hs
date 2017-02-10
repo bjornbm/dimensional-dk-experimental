@@ -18,7 +18,7 @@ Provides (orphan) instances of 'AdditiveGroup' and 'VectorSpace' for 'Quantity's
 
 module Numeric.Units.Dimensional.DK.VectorSpace where
 
-import Numeric.Units.Dimensional.DK.Prelude
+import Numeric.Units.Dimensional.Prelude
 import Data.AdditiveGroup
 import Data.VectorSpace
 

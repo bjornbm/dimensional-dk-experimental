@@ -16,7 +16,7 @@ functions 'fromDiffTime' and 'toDiffTime'.  -}
 
 module Numeric.Units.Dimensional.DK.Time where
 
-import Numeric.Units.Dimensional.DK.Prelude hiding (toDiffTime, fromDiffTime)
+import Numeric.Units.Dimensional.Prelude hiding (toDiffTime, fromDiffTime)
 import Data.Time.Clock (DiffTime)
 
 
