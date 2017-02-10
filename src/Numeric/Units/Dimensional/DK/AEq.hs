@@ -3,7 +3,7 @@
 {-# LANGUAGE TypeSynonymInstances #-}
 
 -- | Provides instances of @Data.AEq.AEq@ from the ieee754 library.
-module Numeric.Units.Dimensional.AEq where
+module Numeric.Units.Dimensional.DK.AEq where
 
 import Numeric.Units.Dimensional (Quantity)
 import Numeric.Units.Dimensional.Coercion
