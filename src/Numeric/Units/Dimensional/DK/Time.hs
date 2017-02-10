@@ -18,6 +18,7 @@ module Numeric.Units.Dimensional.DK.Time where
 
 import Numeric.Units.Dimensional.Prelude hiding (toDiffTime, fromDiffTime)
 import Data.Time.Clock (DiffTime)
+import qualified Prelude
 
 
 -- | Convert a 'DiffTime' to a 'Time' quantity.

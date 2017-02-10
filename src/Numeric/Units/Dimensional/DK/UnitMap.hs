@@ -17,7 +17,7 @@ Define .  -}
 module Numeric.Units.Dimensional.DK.UnitMap where
 
 import Numeric.Units.Dimensional.Prelude hiding (lookup)
-import Numeric.Units.Dimensional.Dynamic
+import Numeric.Units.Dimensional.Dynamic hiding (siUnit)
 import qualified Data.Map as M
 import Data.ExactPi
 import Data.Proxy

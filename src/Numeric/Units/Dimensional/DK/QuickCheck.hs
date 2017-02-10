@@ -36,7 +36,7 @@ newtype NonZeroD d a = NonZeroD { getNonZeroD :: Quantity d a } deriving (Eq)
 instance (Arbitrary a, Eq a, Num a) => Arbitrary (NonZeroD d a) where
   arbitrary = NonZeroD <$> suchThat arbitrary (/= _0)
 
-deriving instance (KnownDimension d, Fractional a, Show a) => Show (NonZeroD d a)
+deriving instance (KnownDimension d, Real a, Show a) => Show (NonZeroD d a)
 
 -- | @PositiveD x@ has an 'Test.QuickCheck.Arbitrary' instance that
   -- guarantees that @x \> 0@.
@@ -47,7 +47,7 @@ newtype PositiveD d a = PositiveD { getPositiveD :: Quantity d a }  deriving (Eq
 instance (Arbitrary a, Ord a, Num a) => Arbitrary (PositiveD d a) where
   arbitrary = PositiveD <$> suchThat arbitrary (> _0)
 
-deriving instance (KnownDimension d, Fractional a, Show a) => Show (PositiveD d a)
+deriving instance (KnownDimension d, Real a, Show a) => Show (PositiveD d a)
 
 -- | @NonNegativeQ x@ has an 'Test.QuickCheck.Arbitrary' instance that
   -- guarantees that @x \>= 0@.
@@ -58,7 +58,7 @@ newtype NonNegativeD d a = NonNegativeD { getNonNegativeD :: Quantity d a }  der
 instance (Arbitrary a, Ord a, Num a) => Arbitrary (NonNegativeD d a) where
   arbitrary = NonNegativeD <$> suchThat arbitrary (>= _0)
 
-deriving instance (KnownDimension d, Fractional a, Show a) => Show (NonNegativeD d a)
+deriving instance (KnownDimension d, Real a, Show a) => Show (NonNegativeD d a)
 
 -- | @ZeroOneQ x@ has an 'Test.QuickCheck.Arbitrary' instance that
   -- guarantees that @_0 <= x < 1 *~ siUnit@.
