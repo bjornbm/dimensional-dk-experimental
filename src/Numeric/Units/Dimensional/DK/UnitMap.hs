@@ -75,7 +75,7 @@ From table 3a of the NIST guide, copied from SIUnits module:
 
 -}
 
-exampleSI :: (Fractional v) => UnitMap
+exampleSI :: UnitMap
 exampleSI = id
           $ insert hertz
           $ insert newton
