@@ -27,13 +27,22 @@ import Outputable (Outputable (..), (<+>), ($$), text)
 import Plugins    (Plugin (..), defaultPlugin)
 import TcEvidence (EvTerm)
 import TcPluginM  (TcPluginM, tcPluginIO, tcPluginTrace, zonkCt)
+#if __GLASGOW_HASKELL__ >= 810
+import Constraint (Ct, ctEvidence, ctEvPred,
+                   ctPred, ctLoc, isGiven, isWanted, mkNonCanonical)
+import Predicate  (EqRel (NomEq), Pred (EqPred), classifyPredType,  mkPrimEqPred)
+import TcRnTypes  (TcPlugin (..), TcPluginResult(..))
+import Type       (Kind, Type, TyVar,
+                   typeKind, mkTyVarTy)
+#elif __GLASGOW_HASKELL__ >= 711
 import TcRnTypes  (Ct, TcPlugin (..), TcPluginResult(..), ctEvidence, ctEvPred,
                    ctPred, ctLoc, isGiven, isWanted, mkNonCanonical)
-#if __GLASGOW_HASKELL__ >= 711
 import TcType     (typeKind)  -- GHC >= 7.11
 import Type       (EqRel (NomEq), Kind, PredTree (EqPred), Type, TyVar,
                    classifyPredType, mkTyVarTy, mkPrimEqPred)
 #else
+import TcRnTypes  (Ct, TcPlugin (..), TcPluginResult(..), ctEvidence, ctEvPred,
+                   ctPred, ctLoc, isGiven, isWanted, mkNonCanonical)
 import TcType     (mkEqPred, typeKind)  -- GHC < 7.11
 import Type       (EqRel (NomEq), Kind, PredTree (EqPred), Type, TyVar,
                    classifyPredType, mkTyVarTy)
