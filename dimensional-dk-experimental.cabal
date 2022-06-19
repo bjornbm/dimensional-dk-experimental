@@ -22,7 +22,7 @@ library
                        Numeric.Units.Dimensional.DK.Composite,
                        Numeric.Units.Dimensional.DK.VectorSpace,
                        Numeric.Units.Dimensional.DK.AbsoluteTemperature,
-                       Numeric.Units.Dimensional.DK.Solver,
+                       --Numeric.Units.Dimensional.DK.Solver,
                        Numeric.Units.Dimensional.DK.UnitMap,
                        Numeric.Units.Dimensional.DK.QuickCheck,
                        Numeric.Units.Dimensional.DK.HaTeX,
@@ -31,7 +31,7 @@ library
   -- other-extensions:
   build-depends:       base,
                        exact-pi,
-                       ghc,
+                       --ghc,
                        time,
                        dimensional,
                        numtype-dk,
